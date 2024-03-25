@@ -18,6 +18,8 @@ void filterOptions() {
   std::cout << "Filter Options:\n";
   std::cout << "1) Convert image to Black and White\n";
   std::cout << "2) Convert image to Gray scale\n";
+  std::cout << "3) Convert image to negative colors\n";
+  
 }
 
 void convertToBlackAndWhite(Image &image) {
@@ -61,6 +63,17 @@ void convertToGrayScale(Image &image) {
     }
   }
 }
+void convertToNegative(Image &image) {
+  for (int i = 0; i < image.width; ++i) {
+    for (int j = 0; j < image.height; ++j) {
+      for (int k = 0; k < 3; ++k) {
+        image(i, j, 0) = 255 - image(i, j, 0);
+        image(i, j, 1) = 255 - image(i, j, 1);
+        image(i, j, 2) = 255 - image(i, j, 2);
+      }
+    }
+  }
+}
 
 int main() {
   std::string option_1, option_2, option_filter;
@@ -97,6 +110,8 @@ int main() {
         convertToBlackAndWhite(image);
       } else if (option_filter == "2") {
         convertToGrayScale(image);
+      } else if (option_filter =="3") {
+        convertToNegative(image);
       } else {
         std::cout << "Invalid filter option\n";
         continue;
